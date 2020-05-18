@@ -49,4 +49,14 @@ A organização geral é a seguinte:
 - `src/app.ts` - Cria a aplicação (_middlewares_, rotas, etc). 
 - `src/routes.ts` - Gerado automaticamente pela framework TSOA. Regista as rotas da aplicação. 
 - `src/config.json` - Contém os parâmetros de configuração da aplicação. 
-- `src/openapi.json` - Gerado automaticamente pela framework TSOA. Contém a especificação OpenAPI para
+- `src/openapi.json` - Gerado automaticamente pela framework TSOA. Contém a especificação OpenAPI para as rotas desta aplicação. 
+- `src/sequelize.ts` - Cria a instância para a interação com a base de dados. 
+- `src/common/errors.ts` - Processamento de erros da aplicação. 
+- `src/common/roles.ts` - Define os níveis de privilégio para as rotas da aplicação. 
+- `src/common/types.ts` - Define os tipos e interfaces em comum entres as entidades de domínio.
+- `src/security/authorization.ts` - Controlo de autenticação e autorização.
+- `src/utils/crypto.ts` - Contém funções de criptografia. 
+- `src/utils/logger.ts` - Para registar os pedidos HTTP, interação com a base de dados e outros _logs_.
+
+Cada entidade de domínio (e.g. product), tem a seguinte estrutura:
+- `src/{entity}/{entity}Controller.ts` - Implementa o controlador TSOA
