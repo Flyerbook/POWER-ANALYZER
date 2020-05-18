@@ -33,4 +33,20 @@ Secções:
 
 Esta aplicação é para correr no ambiente [NodeJS](https://nodejs.org/en/about/).
 
-Na pasta raíz do projeto, execute o seguinte 
+Na pasta raíz do projeto, execute o seguinte comando:
+```
+npm install
+```
+Este comando instala as dependências necessárias para compilar, executar e testar a aplicação.
+
+---
+
+## Estrutura da Aplicação
+
+A organização geral é a seguinte: 
+- `src/server.ts` - Servidor da aplicação que serve como ponto de entrada. 
+- `src/sslcerts` - Diretório para os certificados do servidor (HTTPS). Mais detalhes na secção [Servidor HTTPS](#servidor-https)
+- `src/app.ts` - Cria a aplicação (_middlewares_, rotas, etc). 
+- `src/routes.ts` - Gerado automaticamente pela framework TSOA. Regista as rotas da aplicação. 
+- `src/config.json` - Contém os parâmetros de configuração da aplicação. 
+- `src/openapi.json` - Gerado automaticamente pela framework TSOA. Contém a especificação OpenAPI para
