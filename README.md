@@ -84,4 +84,22 @@ Os parâmetros de configuração são os seguintes:
 - `security.accessExpiresInSeconds` - Tempo de vida do _access token_. 
 - `security.refreshCookie` - Nome da cookie do _refresh token_. 
 - `security.refreshExpiresInSeconds` - Tempo de vida do _refresh token_. 
-- `security.GOOGLE_ID` - Identificador do projeto [Google API](https://developers.google.com/identity/gsi/web/guides/get-google-api
+- `security.GOOGLE_ID` - Identificador do projeto [Google API](https://developers.google.com/identity/gsi/web/guides/get-google-api-clientid). Mais detalhes na secção [Autenticação com conta Google](#autenticação-com-conta-google).
+
+---
+
+## Compilar, Executar e Testar
+
+Antes de iniciar a aplicação, verifique que a configuração é válida, em particular os parâmetros sem valor por omissão (e.g. `sequelize.DATABASE_URL`).
+
+Para iniciar em modo de desenvolvedor, utilize o comando
+```
+npm run dev
+```
+O projeto está configurado para compilar e reiniciar a aplicação automaticamente, sempre que o código fonte ou `config.json` são alterados. Utiliza-se o módulo `nodemon` em combinação com `ts-node` para este fim. Não deve alterar as configurações do ficheiro `nodemon.json`.
+
+Se apenas pretende compilar o código, utilize o comando
+```
+npm run build
+```
+Cria a pasta `build/` com o código fonte com
