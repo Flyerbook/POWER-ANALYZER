@@ -59,4 +59,16 @@ A organização geral é a seguinte:
 - `src/utils/logger.ts` - Para registar os pedidos HTTP, interação com a base de dados e outros _logs_.
 
 Cada entidade de domínio (e.g. product), tem a seguinte estrutura:
-- `src/{entity}/{entity}Controller.ts` - Implementa o controlador TSOA
+- `src/{entity}/{entity}Controller.ts` - Implementa o controlador TSOA. Aqui encontra a definição das rotas para essa entidade.
+- `src/{entity}/{entity}Model.ts` - Implementa o modelo Sequelize.
+
+---
+
+## Configuração
+
+No ficheio `src/config.json`, estão definidos os parâmetros de configuração da aplicação. Os que têm o nome capitalizado (e.g. sequelize.DATABASE_URL) também podem ser definidos como variável de ambiente. Se definida, a aplicação dá prioridade à variável de ambiente.  
+**Nota:  Por uma questão de segurança, recomenda-se o uso das variáveis de ambiente, em particular com informação sensível.**
+
+Os parâmetros de configuração são os seguintes: 
+- `sequelize.DATABASE_URL` - URL do servidor da base de dados. 
+- `sequelize.options` - Objecto com as opções da ligação do [Sequelize](https://sequelize
