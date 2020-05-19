@@ -71,4 +71,10 @@ No ficheio `src/config.json`, estão definidos os parâmetros de configuração 
 
 Os parâmetros de configuração são os seguintes: 
 - `sequelize.DATABASE_URL` - URL do servidor da base de dados. 
-- `sequelize.options` - Objecto com as opções da ligação do [Sequelize](https://sequelize
+- `sequelize.options` - Objecto com as opções da ligação do [Sequelize](https://sequelize.org/api/v6/class/src/sequelize.js~sequelize). 
+- `server.PORT` - Porta na qual o servidor atente pedidos. 
+- `server.ORGINS` - Array de strings com os domínios permitidos para _Cross-Site Resource Sharing_. Para definir esta variável de ambiente use a notação de _comma separated values_ (e.g. domain1,domain2,domain3). 
+- `server.https` - Indica se o servidor deve correr com o protocolo HTTPS. Mais detalhes na secção [Servidor HTTPS](#servidor-https). 
+- `server.CERT_PASSPHRASE` - Palavra chave da _private key_ do certificado do servidor, se esta estiver assinada. 
+- `server.trustProxy` - Indica que os pedidos à aplicação passam primeiro por um servidor proxy de confiança. 
+- `database.ADMIN_USER` - Use
