@@ -77,4 +77,11 @@ Os parâmetros de configuração são os seguintes:
 - `server.https` - Indica se o servidor deve correr com o protocolo HTTPS. Mais detalhes na secção [Servidor HTTPS](#servidor-https). 
 - `server.CERT_PASSPHRASE` - Palavra chave da _private key_ do certificado do servidor, se esta estiver assinada. 
 - `server.trustProxy` - Indica que os pedidos à aplicação passam primeiro por um servidor proxy de confiança. 
-- `database.ADMIN_USER` - Use
+- `database.ADMIN_USER` - Username para uma nova conta de administrador, caso não exista nenhuma na base de dados Este parâmetro é opcional. 
+- `database.ADMIN_PW` Password para a conta de administrador. Usado em conjunto com o parâmetro anterior. 
+- `security.ACCESS_SECRET` - Chave secreta para assinar os JSON Web Tokens utilizados no esquema de autenticação. 
+- `security.accessCookie` - Nome da cookie do _access token_. 
+- `security.accessExpiresInSeconds` - Tempo de vida do _access token_. 
+- `security.refreshCookie` - Nome da cookie do _refresh token_. 
+- `security.refreshExpiresInSeconds` - Tempo de vida do _refresh token_. 
+- `security.GOOGLE_ID` - Identificador do projeto [Google API](https://developers.google.com/identity/gsi/web/guides/get-google-api
