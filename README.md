@@ -102,4 +102,27 @@ Se apenas pretende compilar o código, utilize o comando
 ```
 npm run build
 ```
-Cria a pasta `build/` com o código fonte com
+Cria a pasta `build/` com o código fonte compilado para JavaScript.
+
+Para iniciar a aplicação em modo normal, utilize o comando
+```
+npm start
+```
+
+---
+
+## Servidor HTTPS
+
+Se não estiver a ser utilizado um servidor proxy para atender os pedidos, pode correr a aplicação na máquina local pelo protocolo HTTPS. Para isso, é necessário fornecer os certificados do servidor.
+
+São necessários dois ficheiros na pasta `src/sslcerts`:
+- cert.pem - o certificado, em formato PEM. 
+- key.pem - a chave privada, em formato PEM.
+
+Se a chave privada estiver assinada, é obrigatório definir a _passphrase_ correspondente. 
+
+---
+
+## Cross-Origin Resource Sharing (CORS)
+
+O servidor utiliza **cookies** para autenticação e autorização do utilizador (_access token_ e _refresh token_). Uma aplicação cliente, de qualquer
