@@ -151,4 +151,16 @@ Para mais informações visite o site [Google Identity Services](https://develop
 ## Documentação da Web API
 
 Depois do processo de _build_ da aplicação, é gerado o ficheiro `src/swagger.json`. Este contém a especificação OpenAPI da aplicação. Pode visualizar esta especificação utilizando o [Swagger Editor](https://editor.swagger.io/).  
-Alternativamente, pode aceder à documentação em tempo de execução. Para isso, aceda ao URI `/docs`.  També
+Alternativamente, pode aceder à documentação em tempo de execução. Para isso, aceda ao URI `/docs`.  Também é possível obter este ficheiro pelo URI `/docs/swagger.json`.
+
+---
+
+## Documentação Externa
+
+Para facilitar a implementação de novas funcionalidades, fornecem-se os _links_ para a documentação de algumas das tecnologias utilizadas: 
+- [ExpressJS v4](https://expressjs.com/en/api.html) - Aplicação Express.
+- [OpenAPI v3](https://swagger.io/specification/) - Especificação OpenAPI.
+- [TSOA](https://tsoa-community.github.io/docs/getting-started.html) - Framework para gerar especificação OpenAPI.
+- [Winston](https://www.npmjs.com/package/winston) - Para os  _logs_ da aplicação. 
+- [Sequelize v6](https://sequelize.org/docs/v6/) - Camada de acesso a base de dados SQL.
+- [Jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken
