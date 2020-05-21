@@ -125,4 +125,19 @@ Se a chave privada estiver assinada, é obrigatório definir a _passphrase_ corr
 
 ## Cross-Origin Resource Sharing (CORS)
 
-O servidor utiliza **cookies** para autenticação e autorização do utilizador (_access token_ e _refresh token_). Uma aplicação cliente, de qualquer
+O servidor utiliza **cookies** para autenticação e autorização do utilizador (_access token_ e _refresh token_). Uma aplicação cliente, de qualquer domínio, pode fazer pedidos ao servidor desde que a sua origem esteja definida no [parâmetro de configuração](#configuração) `server.ORGINS`.
+
+É obrigatório definir a propriedade `credentials` do pedido. Essa propriedade faz com que o browser do utilizador envie e guarde as cookies _cross-origin_.
+
+Exemplo utilizando a [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
+```javascript
+fetch("https://example.com", {"credentials": "include"});
+```
+
+---
+
+## Autenticação com conta Google
+
+Disponiliza-se um processo para autenticar utilizadores com uma conta Google. Para isso, é necessário: 
+- Criar um novo projeto nos serviços do Google. 
+- Gerar as credenciais da aplicação do tipo `OAuth Client ID > Web Application`.
