@@ -163,4 +163,4 @@ Para facilitar a implementação de novas funcionalidades, fornecem-se os _links
 - [TSOA](https://tsoa-community.github.io/docs/getting-started.html) - Framework para gerar especificação OpenAPI.
 - [Winston](https://www.npmjs.com/package/winston) - Para os  _logs_ da aplicação. 
 - [Sequelize v6](https://sequelize.org/docs/v6/) - Camada de acesso a base de dados SQL.
-- [Jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken
+- [Jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) - Autenticação e autorização com JWTs.
