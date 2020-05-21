@@ -140,4 +140,15 @@ fetch("https://example.com", {"credentials": "include"});
 
 Disponiliza-se um processo para autenticar utilizadores com uma conta Google. Para isso, é necessário: 
 - Criar um novo projeto nos serviços do Google. 
-- Gerar as credenciais da aplicação do tipo `OAuth Client ID > Web Application`.
+- Gerar as credenciais da aplicação do tipo `OAuth Client ID > Web Application`.  
+- Configurar o `Oauth Consent Screen`. Na lista de _scopes_, especificar `./auth/userinfo.email` e `./auth/userinfo.profile`. 
+
+Visite o tutorial oficial do Google [aqui](https://developers.google.com/identity/gsi/web/guides/get-google-api-clientid).  
+Para mais informações visite o site [Google Identity Services](https://developers.google.com/identity/gsi/web). 
+
+---
+
+## Documentação da Web API
+
+Depois do processo de _build_ da aplicação, é gerado o ficheiro `src/swagger.json`. Este contém a especificação OpenAPI da aplicação. Pode visualizar esta especificação utilizando o [Swagger Editor](https://editor.swagger.io/).  
+Alternativamente, pode aceder à documentação em tempo de execução. Para isso, aceda ao URI `/docs`.  També
