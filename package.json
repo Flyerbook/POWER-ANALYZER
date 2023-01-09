@@ -1,0 +1,14 @@
+{
+  "name": "indielisboa-webapi",
+  "version": "1.0.0",
+  "description": "",
+  "directories": {
+    "test": "test"
+  },
+  "main": "build/server.js",
+  "scripts": {
+    "start": "node .",
+    "build": "tsoa spec-and-routes && tsc",
+    "postbuild": "copyfiles --up 1 src/sslcerts/*.pem build",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tso
