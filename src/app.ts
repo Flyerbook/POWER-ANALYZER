@@ -19,4 +19,29 @@ app.use(cors({
     credentials: true
 }));
 
-// Cookie parse
+// Cookie parser middleware
+app.use(cookieParser());
+
+// JSON middleware
+app.use(express.json());
+
+// URL encoded middleware
+app.use(express.urlencoded({extended: true}));
+
+// Redirect HTTP requests.
+// If behind a trusted proxy, the request headers "x-forwarded" will be trusted.
+const TRUST_PROXY: boolean = config.trustProxy;
+if (TRUST_PROXY) {
+    app.enable("trust proxy");
+    app.use("*", (request: Request, response: Response, next: Function) => {
+        if (request.headers["x-forwarded-proto"] === "http") {
+            response.redirect(`https://${request.get("host")}${request.originalUrl}`);
+        } else {
+            next();
+        }
+    });
+}
+
+// Winston logger
+import { routeLogger } from "./utils/logger";
+app.use(
