@@ -66,4 +66,4 @@ app.use("/", (request: Request, response: Response) => response.redirect(DOCS_PA
 
 // Default Error Handler
 import { requestErrorHandler } from "./common/errors";
-ap
+app.use(requestErrorHandler);
