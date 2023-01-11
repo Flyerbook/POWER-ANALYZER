@@ -44,4 +44,26 @@ if (TRUST_PROXY) {
 
 // Winston logger
 import { routeLogger } from "./utils/logger";
-app.use(
+app.use(routeLogger);
+
+// API Routes
+import { RegisterRoutes } from "./routes";
+const ROUTER = express.Router();
+RegisterRoutes(ROUTER);
+app.use(API_PATH, ROUTER);
+
+// Documentation routes
+const DOCS_PATH = "/docs";
+app.get(`${DOCS_PATH}/swagger.json`, (request: Request, response: Response) => {
+    response.status(200);
+    response.json(API_SPECIFICATION);
+    response.end();
+});
+app.use(`${DOCS_PATH}`, swaggerUI.serve, swaggerUI.setup(API_SPECIFICATION));
+
+// Any other path is redirected back to docs
+app.use("/", (request: Request, response: Response) => response.redirect(DOCS_PATH));
+
+// Default Error Handler
+import { requestErrorHandler } from "./common/errors";
+ap
