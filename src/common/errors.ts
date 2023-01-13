@@ -42,4 +42,25 @@ interface AppErrorConstructor {
 }
 
 /**
- * A wrapper class for the appl
+ * A wrapper class for the application custom errors.
+ * We don't need a stack frame for this type of errors.
+ */
+export class AppError {
+    name?: string;
+    code?: AppErrorCode;
+    message?: string;
+    fields?: FieldErrors;
+
+    constructor(params?: AppErrorConstructor) {
+        this.name = params?.name || "AppError";
+        this.message = params?.message;
+        this.code = params?.code || AppErrorCode.UNSPECIFIED;
+        this.fields = params?.fields;
+    }
+}
+
+export class BadRequestError extends AppError {name = "BadRequestError"}
+export class AuthenticationError extends AppError {name = "AuthenticationError"};
+export class ForbiddenError extends AppError {name = "ForbiddenError"};
+export class NotFoundError extends AppError {name = "NotFoundError"};
+exp
