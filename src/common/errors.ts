@@ -63,4 +63,21 @@ export class BadRequestError extends AppError {name = "BadRequestError"}
 export class AuthenticationError extends AppError {name = "AuthenticationError"};
 export class ForbiddenError extends AppError {name = "ForbiddenError"};
 export class NotFoundError extends AppError {name = "NotFoundError"};
-exp
+export class ConflitError extends AppError {name = "ConflitError"}
+
+/**
+ * Run this handler when an error is raised. For example, the server can't connect to the database. 
+ * 
+ * @param error Error object.
+ * @param request Express Request object.
+ * @param response Express Response object.
+ * @param next Callback function. Will be ignored.
+ */
+export function requestErrorHandler(error: Error | AppError, request: Request, response: Response, next: Function): void {
+    // Error pre-processing
+    // All errors, except unexpected ones, should be of type AppError.
+    switch(error.constructor) {
+        case ValidateError:
+            error = new BadRequestError({
+                name: error.name,
+                code: AppErrorCode.REQ_FORMAT
