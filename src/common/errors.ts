@@ -80,4 +80,31 @@ export function requestErrorHandler(error: Error | AppError, request: Request, r
         case ValidateError:
             error = new BadRequestError({
                 name: error.name,
-                code: AppErrorCode.REQ_FORMAT
+                code: AppErrorCode.REQ_FORMAT,
+                message: error.message,
+                fields: (error as ValidateError).fields
+            });
+            break;
+        case SyntaxError:
+            error = new BadRequestError({
+                name: error.name,
+                code: AppErrorCode.REQ_FORMAT,
+                message: error.message,
+            });
+            break;
+        default:
+            ;
+    }
+
+    if (error instanceof AppError) {
+        appLogger.info(error);
+    }
+
+    switch(error.constructor) {
+        case BadRequestError:
+            sendBadRequestError(response, error as BadRequestError);
+            break;
+        case AuthenticationError:
+            sendAuthenticationError(response, error as AuthenticationError);
+            break;
+        case
