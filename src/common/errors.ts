@@ -107,4 +107,26 @@ export function requestErrorHandler(error: Error | AppError, request: Request, r
         case AuthenticationError:
             sendAuthenticationError(response, error as AuthenticationError);
             break;
-        case
+        case ForbiddenError:
+            sendAuthorizationError(response, error as ForbiddenError);
+            break;
+        case NotFoundError:
+            sendNotFoundError(response, error as NotFoundError);
+            break;
+        case ConflitError:
+            sendConflitError(response, error as ConflitError);
+            break;
+        default:
+            appLogger.error(error + "\n" + (error as any).stack);
+            sendUnexpectedServerError(response);
+    }
+}
+
+/**
+ * When the client's request is malformed or contains invalid data, even after passing through the
+ * checks, send a "400 Bad Request" JSON response.
+ * 
+ * @param response Express Response object.
+ * @param error BadRequestError object.
+ */
+ async functi
