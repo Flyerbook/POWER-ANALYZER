@@ -152,4 +152,23 @@ export function requestErrorHandler(error: Error | AppError, request: Request, r
     const body: AuthenticationErrorResponse = {
         status: 401,
         error: {
-            code: error.c
+            code: error.code,
+            message: error.message
+        }
+    }
+
+    // The 401 Unauthorized status code states that WWW-Authenticate MUST be used.
+    // However, our authentication isn't one of the schemes maintained by IANA.
+    // Technically, even though the scheme "Cookie" doesn't exist, we are allowed to use whatever.
+    // User agent (e.g. browser) behaviour is undefined in this case.
+    response.setHeader("WWW-Authenticate", "Cookie");
+    response.status(401).json(body);
+}
+
+/**
+ * When the client can't access the requested resource, send a "403 Forbidden" JSON response.
+ * 
+ * @param response Express Response object.
+ * @param error AuthorizationError object.
+ */
+async function sendAuthorizationError(response: Response, error: ForbiddenError): Promise<voi
