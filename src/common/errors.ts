@@ -129,4 +129,27 @@ export function requestErrorHandler(error: Error | AppError, request: Request, r
  * @param response Express Response object.
  * @param error BadRequestError object.
  */
- async functi
+ async function sendBadRequestError(response: Response, error: BadRequestError): Promise<void> {
+    const body: BadRequestErrorResponse = {
+        status: 400,
+        error: {
+            code: error.code,
+            message: error.message,
+            fields: error.fields
+        }
+    }
+
+    response.status(400).json(body);
+}
+
+/**
+ * When the client can't be authenticated, send a "403 Forbidden" JSON response.
+ * 
+ * @param response Express Response object.
+ * @param error AuthenticationError object.
+ */
+ async function sendAuthenticationError(response: Response, error: AuthenticationError): Promise<void> {
+    const body: AuthenticationErrorResponse = {
+        status: 401,
+        error: {
+            code: error.c
