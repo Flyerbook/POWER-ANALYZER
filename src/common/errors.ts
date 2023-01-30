@@ -202,4 +202,26 @@ async function sendAuthorizationError(response: Response, error: ForbiddenError)
 }
 
 /**
- * When the client requests t
+ * When the client requests to create/update a resource, but that resource is duplicated or can't be updated.
+ * Send a "409 Conflit" JSON response.
+ * 
+ * @param response Express Response object.
+ * @param error NotFoundError object.
+ */
+ async function sendConflitError(response: Response, error: ConflitError): Promise<void> {
+    const body: ConflitErrorResponse = {
+        status: 409,
+        error: {
+            code: error.code,
+            message: error.message,
+            fields: error.fields,
+        }
+    }
+
+    response.status(409).json(body);
+}
+
+/**
+ * All unexpected errors (e.g., no database connection), are sent as a "500 Internal Server" Error JSON response.
+ * 
+ * @param response Express Respo
