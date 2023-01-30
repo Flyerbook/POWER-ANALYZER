@@ -171,4 +171,35 @@ export function requestErrorHandler(error: Error | AppError, request: Request, r
  * @param response Express Response object.
  * @param error AuthorizationError object.
  */
-async function sendAuthorizationError(response: Response, error: ForbiddenError): Promise<voi
+async function sendAuthorizationError(response: Response, error: ForbiddenError): Promise<void> {
+    const body: ForbiddenErrorResponse = {
+        status: 403,
+        error: {
+            code: error.code,
+            message: error.message
+        }
+    }
+
+    response.status(403).json(body);
+}
+
+/**
+ * When the client requests a resource that doesn't exist, send a "401 Not Found" JSON response.
+ * 
+ * @param response Express Response object.
+ * @param error NotFoundError object.
+ */
+ async function sendNotFoundError(response: Response, error: NotFoundError): Promise<void> {
+    const body: NotFoundErrorResponse = {
+        status: 404,
+        error: {
+            code: error.code,
+            message: error.message
+        }
+    }
+
+    response.status(404).json(body);
+}
+
+/**
+ * When the client requests t
