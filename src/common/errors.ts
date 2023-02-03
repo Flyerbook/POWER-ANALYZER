@@ -253,4 +253,26 @@ export interface BadRequestErrorResponse extends BaseErrorResponse {
 }
 
 /** JSON response format for a "401 Unauthorized" error. */
-export interface Authentica
+export interface AuthenticationErrorResponse extends BaseErrorResponse {
+    status: 401,
+}
+
+/** JSON response format for a "403 Forbidden" error. */
+export interface ForbiddenErrorResponse extends BaseErrorResponse {
+    status: 403,
+}
+
+/** JSON response format for a "404 Not Found" error. */
+export interface NotFoundErrorResponse extends BaseErrorResponse {
+    status: 404,
+}
+
+/** JSON response format for a "409 Conflit" error. */
+export interface ConflitErrorResponse extends BaseErrorResponse {
+    status: 409,
+}
+
+/** JSON response format for a "500 Internal Server Error" error. */
+export interface ServerErrorResponse extends BaseErrorResponse {
+    status: 500,
+}
