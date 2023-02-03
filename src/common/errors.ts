@@ -224,4 +224,33 @@ async function sendAuthorizationError(response: Response, error: ForbiddenError)
 /**
  * All unexpected errors (e.g., no database connection), are sent as a "500 Internal Server" Error JSON response.
  * 
- * @param response Express Respo
+ * @param response Express Response object.
+ */
+async function sendUnexpectedServerError(response: Response): Promise<void> {
+    const body: ServerErrorResponse = {
+        status: 500,
+        error: {
+            message: "Unexpected error."
+        }
+    }
+    response.status(500).json(body);
+}
+
+// ------------------------------ Response Formats ------------------------------ //
+
+interface BaseErrorResponse {
+    status: number,
+    error: {
+        code?: AppErrorCode,
+        message?: string,
+        fields?: FieldErrors
+    }
+}
+
+/** JSON response format for a "400 Bad Request" error. */
+export interface BadRequestErrorResponse extends BaseErrorResponse {
+    status: 400,
+}
+
+/** JSON response format for a "401 Unauthorized" error. */
+export interface Authentica
