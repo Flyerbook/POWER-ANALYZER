@@ -20,4 +20,23 @@ export enum Role {
     ADMIN = "admin",
 }
 
-// "Admin" should always b
+// "Admin" should always be greater than everyone else's
+export const roleValue = {
+    [Role.BASIC]: 0x00,
+    [Role.SELLER]: 0x01,
+    [Role.MANAGER]: 0x0F,
+    [Role.ADMIN]: 0xFF,
+};
+
+/**
+ * Check if a given role has the same or more privileges than another.
+ * 
+ * @param actualRole Given role.
+ * @param targetRole Target role.
+ * @returns True if given role has same or more privileges.
+ */
+ export function hasRolePrivileges(actualRole: Role, targetRole: Role): boolean {
+    const target = roleValue[targetRole as keyof typeof roleValue];
+    const actual = roleValue[actualRole as keyof typeof roleValue];
+    return ((actual & target) === target);
+}
