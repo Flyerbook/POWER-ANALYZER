@@ -1,0 +1,33 @@
+
+{
+    "sequelize": {
+        "DATABASE_URL": "",
+        "options": {
+            "dialectOptions": {
+                "ssl": {
+                    "require": true,
+                    "rejectUnauthorized": false
+                }
+            }
+        }
+    },
+    "server": {
+        "PORT": 443,
+        "ORIGINS": [],
+        "CERT_PASSPHRASE": "",
+        "https": false,
+        "trustProxy": true
+    },
+    "database": {
+        "ADMIN_USER": "",
+        "ADMIN_PW": ""
+    },
+    "security": {
+        "ACCESS_SECRET": "change this",
+        "accessCookie": "jwt_access",
+        "accessExpiresInSeconds": 1200,
+        "refreshCookie": "jwt_refresh",
+        "refreshExpiresInSeconds": 604800,
+        "GOOGLE_ID": ""
+    }
+}
