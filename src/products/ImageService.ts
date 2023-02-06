@@ -56,4 +56,9 @@ export async function generateS3SignedUrl(fileName: string, fileType: ImageFileT
       ContentType: fileType,
     };
   
-    const signedUrl = await s3Client.getSigned
+    const signedUrl = await s3Client.getSignedUrlPromise('putObject', s3Params);
+    return {
+        url: signedUrl.split("?")[0],
+        signed: signedUrl
+    };
+}
