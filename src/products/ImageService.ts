@@ -34,4 +34,26 @@ try {
     }
 } catch (err) {
     // Invalid configuration
-    appLogger.err
+    appLogger.error(err);
+}
+
+/**
+ * Cretes a signed url for a given image. Upload the image to the signed url.
+ * 
+ * @param fileName The image's file name.
+ * @param fileType The image's file type.
+ * @returns A promised to be either resolved with the image's url and signed url or rejected with an Error.
+ */
+export async function generateS3SignedUrl(fileName: string, fileType: ImageFileType): Promise<SignedUrl> {
+    if (s3Client == null) return Promise.reject(
+        new Error("ImageService not initialized. Missing environment configuration.")
+    );
+
+    const s3Params = {
+      Bucket: S3_BUCKET,
+      Key: fileName,
+      Expires: EXPIRES,
+      ContentType: fileType,
+    };
+  
+    const signedUrl = await s3Client.getSigned
