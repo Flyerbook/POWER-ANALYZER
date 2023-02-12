@@ -9,4 +9,32 @@ export class Image extends Model<InferAttributes<Image>, InferCreationAttributes
     declare url: CreationOptional<string>;
 
     /** Retrieve the associated Product. */
-  
+    declare getProduct: BelongsToGetAssociationMixin<Product>;
+
+    // Eager loaded properties.
+    declare product?: NonAttribute<Product>;
+
+    declare static associations: {
+        product: Association<Image, Product>;
+    }
+}
+
+registerModel(initImageModel);
+registerAssociations(initImageAssociations);
+
+async function initImageModel(sequelize: Sequelize): Promise<void> {
+    Image.init(
+        {
+            productId: {
+                type: DataTypes.UUID,
+                primaryKey: true,
+                defaultValue: UUIDV4,
+                validate: {
+                    isUUID: 4
+                }
+            },
+            data: {
+                type: DataTypes.TEXT,
+                allowNull: true,
+                validate: {
+                
