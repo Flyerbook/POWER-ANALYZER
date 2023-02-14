@@ -37,4 +37,28 @@ async function initImageModel(sequelize: Sequelize): Promise<void> {
                 type: DataTypes.TEXT,
                 allowNull: true,
                 validate: {
-                
+                    notEmpty: true
+                },
+            },
+            url: {
+                type: DataTypes.TEXT,
+                allowNull: true,
+                validate: {
+                    isUrl: true,
+                }
+            }
+        },
+        {
+            sequelize: sequelize,
+            tableName: "image",
+            timestamps: false,
+        }
+    )
+}
+
+async function initImageAssociations(): Promise<void> {
+    Image.belongsTo(Product, {
+        foreignKey: PRODUCT_FK,
+        as: "product"
+    });
+}
