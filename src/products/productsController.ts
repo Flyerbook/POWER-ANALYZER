@@ -787,3 +787,35 @@ interface GetProductsResult {
     status: 200,
     data: ProductPublicInfo[]
 }
+
+/** JSON response format for the "GET /products/{productId}" endpoint. */
+interface GetProductPublicInfoResult {
+    status: 200,
+    data: ProductPublicInfo
+}
+
+/** JSON response format for the "GET /products/{productId}/protected" endpoint. */
+interface GetProductProtectedInfoResult {
+    status: 200,
+    data: ProductProtectedInfo
+}
+
+/** JSON response format for the "POST /products/{category}" endpoint. */
+interface CreateProductResult {
+    status: 201,
+    data: UUID,
+}
+
+/** JSON response format for the "PATCH /products/{productId}" endpoint. */
+interface UpdateProductResult {
+    status: 200,
+    data: ProductProtectedInfo
+}
+
+interface GetImageSignedUrlResponse {
+    status: 200,
+    data: {
+        url: string,
+        signed: string,
+    }
+}
