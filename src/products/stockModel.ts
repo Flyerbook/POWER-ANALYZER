@@ -12,4 +12,33 @@ export class Stock extends Model<InferAttributes<Stock>, InferCreationAttributes
     declare quantity: number;
 
     declare getProduct: BelongsToGetAssociationMixin<Product>;
-   
+    declare getLocation: BelongsToGetAssociationMixin<Location>;
+
+    // Eager loaded properties
+    declare product?: NonAttribute<Product>;
+    declare location?: NonAttribute<Location>;
+
+    declare static associations: {
+        product: Association<Stock, Product>,
+        location: Association<Stock, Location> 
+    }
+}
+
+registerModel(initStockModel);
+registerAssociations(initStockAssociations);
+
+async function initStockModel(sequelize: Sequelize): Promise<void> {
+    Stock.init(
+        {
+            quantity: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                validate: {
+                    min: 0
+                }
+            }
+        },
+        {
+            timestamps: false,
+            sequelize: sequelize,
+     
