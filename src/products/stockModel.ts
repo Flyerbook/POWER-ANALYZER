@@ -41,4 +41,19 @@ async function initStockModel(sequelize: Sequelize): Promise<void> {
         {
             timestamps: false,
             sequelize: sequelize,
-     
+            tableName: "stock",
+        }
+    )
+}
+
+async function initStockAssociations(): Promise<void> {
+    Stock.belongsTo(Product, {
+        foreignKey: STOCK_PRODUCT_FK,
+        as: "product"
+    });
+
+    Stock.belongsTo(Location, {
+        foreignKey: STOCK_LOCATION_FK,
+        as: "location"
+    });
+}
