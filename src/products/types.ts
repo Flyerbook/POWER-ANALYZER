@@ -20,3 +20,31 @@ export enum TshirtSize {
     KID = "kid",
     XS = "xs",
     S = "s",
+    M = "m",
+    L = "l",
+    XL = "xl"
+}
+
+/** The available Tshirt colours */
+export enum TshirtColour {
+    RED = "red",
+    GREEN = "green",
+    BLUE = "blue",
+    YELLOW = "yellow",
+    ORANGE = "orange",
+    PURPLE = "purple",
+    BLACK = "black",
+    WHITE = "white",
+}
+
+/** The available Bag categories */
+export enum BagColour {
+    RED = "red",
+    GREEN = "green",
+    BLUE = "blue",
+    YELLOW = "yellow",
+    ORANGE = "orange",
+    PURPLE = "purple",
+    BLACK = "black",
+    WHITE = "white",
+}
