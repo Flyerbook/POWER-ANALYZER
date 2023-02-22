@@ -33,4 +33,33 @@ async function initTagModel(sequelize: Sequelize): Promise<void> {
                     isUUID: 4
                 }
             },
-      
+            name: {
+                type: DataTypes.STRING,
+                primaryKey: true,
+                allowNull: false,
+                validate: {
+                    notEmpty: true
+                },
+            },
+            value : {
+                type: DataTypes.STRING,
+                allowNull: false,
+                validate: {
+                    notEmpty: true,
+                },
+            }
+        },
+        {
+            sequelize: sequelize,
+            tableName: "tag",
+            timestamps: false,
+        }
+    )
+}
+
+async function initTagAssociations(): Promise<void> {
+    Tag.belongsTo(Product, {
+        foreignKey: PRODUCT_FK,
+        as: "product"
+    });
+}
