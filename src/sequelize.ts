@@ -61,4 +61,15 @@ export async function initDatabase(): Promise<void> {
 /**
  * @returns A Sequelize instance.
  */
-async function createSequelizeInstace(): Prom
+async function createSequelizeInstace(): Promise<Sequelize> {
+    if (URL == null || URL == "") {
+        return Promise.reject(
+            "No connection configuration. "+
+            "Set the 'DATABASE_URL' enviroment variable or use the 'config.json' file."
+        )    
+    }   
+    return new Sequelize(URL, {
+        ...options,
+        logging: msg => databaseLogger.info(msg)
+    });
+}
