@@ -34,4 +34,31 @@ export function registerModel(init: ModelInit) {
  * 
  * @param init Function that initializes the Model's associations.
  */
-export function register
+export function registerAssociations(init: AssociationsInit) {
+    associations.push(init);
+}
+
+/**
+ * Initializes the DB connection.
+ */
+export async function initDatabase(): Promise<void> {
+    databaseLogger.info("Initializing DB connection...");
+    const sequelize = await createSequelizeInstace();
+
+    try {
+        await sequelize.authenticate();
+    } catch (error) {
+        return Promise.reject("Connection failed. Verify connection info ('DATABASE_URL' or 'config.json').");
+    }
+    
+    databaseLogger.info("Authenticated.");
+
+    await Promise.all(models.map(func => func(sequelize)));
+    await Promise.all(associations.map(func => func()));
+    await sequelize.sync();
+}
+
+/**
+ * @returns A Sequelize instance.
+ */
+async function createSequelizeInstace(): Prom
