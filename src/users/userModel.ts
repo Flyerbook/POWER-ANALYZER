@@ -26,4 +26,30 @@ async function initUserModel(sequelize: Sequelize): Promise<void> {
                 type: DataTypes.UUID,
                 primaryKey: true,
                 defaultValue: UUIDV4,
-          
+                validate:{
+                    isUUID: 4
+                }
+            },
+            username: {
+                type: DataTypes.STRING,
+                unique: true,
+                allowNull: true,
+            },
+            password: {
+                type: DataTypes.STRING,
+                allowNull: true,
+            },
+            name: {
+                type: DataTypes.STRING,
+                allowNull: false,
+            },
+            email: {
+                type: DataTypes.STRING,
+                unique: true,
+                allowNull: true,
+                validate: {
+                    isEmail: true,
+                }
+            },
+            role: {
+                type: DataTypes.ENUM,
