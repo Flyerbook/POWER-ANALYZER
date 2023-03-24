@@ -4,4 +4,26 @@ import { registerAssociations, registerModel } from "../sequelize";
 import { Role } from "../common/roles";
 
 registerModel(initUserModel);
-registerAssociati
+registerAssociations(initUserAssociations);
+
+export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+    declare userId: CreationOptional<string>;
+    declare username: Username | null;
+    declare password: Password | null;
+    declare name: string;
+    declare email: Email | null;
+    declare role: Role;
+    declare createdAt: NonAttribute<Date>;
+    declare updatedAt: NonAttribute<Date>;
+    declare token: string | null;
+    declare tokenExpiresDate: Date | null;
+}
+
+async function initUserModel(sequelize: Sequelize): Promise<void> {
+    User.init(
+        {
+            userId: {
+                type: DataTypes.UUID,
+                primaryKey: true,
+                defaultValue: UUIDV4,
+          
