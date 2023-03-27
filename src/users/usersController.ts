@@ -265,3 +265,199 @@ export class UsersController extends Controller {
                 fields: {
                     "userId": {
                         message: "This userId doesn't exist.",
+                        value: userId
+                    }
+                }
+            }));
+        }
+
+        return {
+            status: 200,
+            data: toUserFullInfo(result)
+        }
+    }
+
+    /**
+     * @summary Update user's information.
+     * 
+     * @param userId User's unique identifier.
+     */
+    @Patch("{userId}/fullinfo")
+    @Tags(TAG_USERS)
+    @Security(SecurityScheme.JWT, [Role.ADMIN])
+    @SuccessResponse(200, "Successfully updated the user's information.")
+    @Response<BadRequestErrorResponse>(400, "Bad Request", {
+        status: 400,
+        error: {
+            fields: {
+                "body.name": {
+                    message: "invalid string value",
+                    value: 0
+                }
+            }
+        }
+    })
+    @Response<AuthenticationErrorResponse>(401, "Not Authenticated.")
+    @Response<ForbiddenErrorResponse>(403, "Not Authorized.")
+    @Response<NotFoundErrorResponse>(404, "User not found.")
+    @Response<ServerErrorResponse>(500, "Internal Server Error.")
+    public async updateUserFullInfo(
+        @Request() request: AuthRequest,
+        @Path() userId: UUID,
+        @Body() body: UpdateUserFullInfoParams,
+    ): Promise<UpdateUserFullInfoResult> {
+        const { name, role } = body;
+        const attributes = ["userId", "name", "role", "createdAt", "updatedAt"];
+   
+        try {    
+            const result = await User.sequelize!!.transaction(async (transaction) => {
+                const user = await User.findByPk(userId, {attributes, transaction});
+                if (user == null) {
+                    return new NotFoundError({
+                        code: AppErrorCode.NOT_FOUND,
+                        message: "User not found.",
+                        fields: {
+                            "userId": {
+                                message: "This userId doesn't exist.",
+                                value: userId
+                            }
+                        }
+                    });
+                }
+                
+                // Only changes roles for other users.
+                if (request.auth.userId !== userId && role != null) {
+                    user.role = role;
+                }
+                if (name != null) {
+                    user.name = name;
+                }
+
+                await user.save({transaction});
+                
+                return user;
+            });
+            
+            // User not found
+            if (result instanceof AppError) {
+                return Promise.reject(result);
+            }
+
+            return {
+                status: 200,
+                data: toUserFullInfo(result)
+            }
+
+        } catch (error) {
+            return Promise.reject(error);
+        }
+    }
+}
+
+// ------------------------------ Helper Functions ------------------------------ //
+
+/**
+ * Takes a User and formats it into a UserFullInfo.
+ * 
+ * @param user The User object to be formatted.
+ * @returns The formatted UserFullInfo object. 
+ */
+function toUserFullInfo(user: User): UserFullInfo {
+    return {
+        userId: user.userId,
+        name: user.name,
+        role: user.role,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt
+    }
+}
+
+/**
+ * Takes a User and formats it into a UserProfile.
+ * 
+ * @param user The User object to be formatted.
+ * @returns The formatted UserProfile object. 
+ */
+ function toUserProfile(user: User): UserProfile {
+    return {
+        userId: user.userId,
+        name: user.name,
+    }
+}
+
+// ------------------------------ Request Formats ------------------------------ //
+
+/** JSON request format to create a new user. */
+interface CreateUserParams {
+    username: Username,
+    password: Password,
+    name: Fullname,
+}
+
+/** JSON request format to update an existing user. */
+interface UpdateUserProfileParams {
+    name: Fullname,
+}
+
+/** JSON request format to update an existing user's details. */
+interface UpdateUserFullInfoParams {
+    name?: Fullname,
+    role?: Role
+}
+
+// ------------------------------ Response Formats ------------------------------ //
+
+interface UserProfile {
+    userId: UUID;
+    name: Fullname;
+}
+
+interface UserFullInfo {
+    userId: UUID;
+    name: Fullname;
+    role: Role;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+/** JSON response format for the "GET /users" endpoint. */
+interface SearchUsersResult {
+    status: 200,
+    data: UserFullInfo[]
+}
+
+/** JSON response format for the "GET /users/sellers" endpoint. */
+interface GetSellersResult {
+    status: 200,
+    data: UserProfile[]
+}
+
+/** JSON response format for the "GET /users/{userId}/fullinfo" endpoint. */
+interface GetUserFullInfoResult {
+    status: 200,
+    data: UserFullInfo
+}
+
+/** JSON response format for the "GET /users/{userId}" endpoint. */
+    interface GetUserProfileResult {
+    status: 200,
+    data: UserProfile
+}
+
+/** JSON response format for the "POST /users" endpoint. */
+interface CreateUserResult {
+    status: 201,
+    data: UUID
+}
+
+/** JSON response format for the "PATCH /users/{userId}" endpoint. */
+ interface UpdateUserProfileResult {
+    status: 200,
+    data?: UserProfile
+}
+
+/** JSON response format for the "PATCH /users/{userId}/fullinfo" endpoint. */
+ interface UpdateUserFullInfoResult {
+    status: 200,
+    data?: UserFullInfo
+}
