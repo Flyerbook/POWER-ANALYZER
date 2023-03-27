@@ -53,3 +53,25 @@ async function initUserModel(sequelize: Sequelize): Promise<void> {
             },
             role: {
                 type: DataTypes.ENUM,
+                allowNull: false,
+                values: Object.values(Role)
+            },
+            token: {
+                type: DataTypes.STRING,
+                unique: true,
+            },
+            tokenExpiresDate: {
+                type: DataTypes.DATE,
+            }
+        },
+        {
+            sequelize: sequelize,
+            tableName: "user",
+            timestamps: true,
+        }
+    )
+}
+
+async function initUserAssociations(): Promise<void> {
+    ;
+}
