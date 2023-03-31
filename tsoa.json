@@ -1,0 +1,22 @@
+{
+    "entryFile": "src/server.ts",
+    "noImplicitAdditionalProperties": "silently-remove-extras",
+    "controllerPathGlobs": ["src/**/*Controller.ts"],
+    "spec": {
+      "name": "IndieLisboa Stock Management",
+      "description": "Web API to view/edit product stock, register sales and manage user accounts.",
+      "outputDirectory": "src",
+      "specVersion": 3,
+      "securityDefinitions": {
+        "jwt": {
+          "type": "apiKey",
+          "in": "cookie",
+          "name": "jwt_access"
+        }
+      }
+    },
+    "routes": {
+      "routesDir": "src",
+      "authenticationModule": "./src/security/authorization"
+    }
+}
