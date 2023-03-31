@@ -32,4 +32,28 @@ export async function randomToken(tokenSize: number = DEFAULT_TOKEN_SIZE): Promi
             if (err) {
                 reject(err);
             } else {
-                resolve(buf.toString("hex")
+                resolve(buf.toString("hex"));
+            }
+        })
+    });
+}
+
+/**
+ * Creates a new Date object with the Date after the specified number of seconds, in UTC format.
+ * 
+ * @param seconds A number of seconds.
+ * @returns A Date after the number of seconds, in UTC format.
+ */
+export function getNowAfterSeconds(seconds: number): Date {
+    return new Date(new Date(Date.now() + seconds * 1000).toUTCString());
+}
+
+/**
+ * Compares a date to the current date (i.e., now).
+ * 
+ * @param date The date to be compared.
+ * @returns The comparison result. True if date is older or null.
+ */
+export function hasDateExpired(date: Date | null | undefined): boolean {
+    return (date == null) || (date.valueOf() < Date.now());
+}
